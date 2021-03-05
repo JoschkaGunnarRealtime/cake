@@ -1,0 +1,40 @@
+Virtuelle Geburtstagstorte
+
+- Bäcker
+    - Erstellt die Torte
+    - Teilt die Torte in n Stücke (n <= 16) 
+    - Heftet an jedes Tortenstück ein kleines Geschenk
+        - z.b. Youtube/Vimeo Video (URL)
+        - Spotify Song
+        - Buchempfehlungen
+        - Mediendateien (MP4 / MP3)
+    - verschickt die Torte an mehrere Mail Empfänger
+
+- Tortenstückvernichtungsentität
+    - Nimmt sich ein Stück aus der Torte
+    - Kann sich per embedded Player den Stückinhalt nehmen / anschauen und sich drüber freuen
+    - evtl. gibt es Feedback für Bäcker (nach dem Essen)
+
+- Die Welt
+    - Jeder nur EIN Stück
+    - Wenn man ein Stück gegessen hat ist es danach weg. (ach!?)
+
+
+Backend:
+- Node.js mit express
+- Sequalize (ORM)
+
+Torten: 
+[
+    torte: {
+        stuecke: [
+            1: {url: 'http://youtube.com/IchBinEinVide0'},
+            2: {url: 'http://youtube.com/IchBinAuchEinVideo'}
+        ]
+    }
+]
+
+
+Frontend:
+- Vue.js
+
