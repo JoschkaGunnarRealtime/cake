@@ -1,0 +1,7 @@
+Änderungsgeschehnisse = Perfekt anstatte subscribe((result) => ) eher subscribe ((aenderungsgeschehnisse) =>)
+
+Torte: 
+- (A) Bisquittortenbodenbasis(aufbau)
+- (B) Anlassgebundenesfreigebäck (!!)
+- (C) Multischichtbisquitschichtenkonditorerzeugnis
+- (D) Sozialanerkanntesnachmittagsverzehrprodukt
