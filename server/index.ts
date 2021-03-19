@@ -6,16 +6,16 @@ const app = express();
 app.use(morgan('combined'));
 app.use(cors());
 
-app.get('/torte', (req: any, res: any) => {
-  res.status(200).json([{
-    torte: {
+app.get('/anlassgebundenesfreigebaeck', (req: any, res: any) => {
+  res.status(200).json({
+    Anlassgebundenesfreigebäck: {
       id: 1,
       stuecke: [
-        { url: 'http://youtube.com/IchBinEinVide0', bedienungsanleitung: 'NSFW' },
-        { url: 'http://youtube.com/IchBinAuchEinVideo', bedienungsanleitung: 'SFW' },
+        { url: 'https://www.youtube.com/watch?v=MAlSjtxy5ak', bedienungsanleitung: 'Learn' },
+        { url: 'https://www.youtube.com/watch?v=_WH6cbwZ5m8', bedienungsanleitung: 'Learn faster' },
         { kommentarzettel: 'hm. legger' },
       ],
     },
-  }]);
+  });
 });
 app.listen(process.env.PORT || 3000);
