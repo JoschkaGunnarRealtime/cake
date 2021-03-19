@@ -1,7 +1,7 @@
 <template>
     <div>
-        <h1>Hallo ich bin eine tortenstuecke!</h1>
-        <div 
+        <h1>Hallo ich bin ein Anlass gebundenes Freigebäck!</h1>
+        <div
             v-for="stueck in tortenstuecke"
             :key="stueck.url"
         >
@@ -19,19 +19,19 @@
 
 <script>
 export default {
-    name: 'tortenstuecke',
-    data() {
-        return {
-            tortenstuecke: undefined,
-        };
-    },
-    beforeMount() {
-        this.axios.get('/torte').then((response) => {
-            this.tortenstuecke = response.data.torte.stuecke;
-            console.log(this.tortenstuecke);
-        });
-    }
-}
+  name: 'tortenstuecke',
+  data() {
+    return {
+      tortenstuecke: undefined,
+    };
+  },
+  beforeMount() {
+    this.axios.get('/anlassgebundenesfreigebaeck').then((response) => {
+      this.tortenstuecke = response.data.Anlassgebundenesfreigebäck.stuecke;
+      console.log(this.tortenstuecke);
+    });
+  },
+};
 </script>
 
 <style>

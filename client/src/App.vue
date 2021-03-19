@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Torte from './components/Torte';
+import Torte from './components/Torte.vue';
 
 export default {
   name: 'App',
