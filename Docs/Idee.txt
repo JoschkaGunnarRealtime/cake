@@ -38,3 +38,19 @@ Torten:
 Frontend:
 - Vue.js
 
+
+Steps:
+
+[Blech] -> 
+    [man nimmt sich ein Stück] -> 
+    [dialog, oben Zettel vom Kuchenbäcker] ->
+    [Link/Pop/whatever zum Content]
+
+
+Aufrufsystematik: 
+Jedes Anlassgebundenesfreigebaeck hat eine UUID. Alle Elemente der UUID werden durch einen Gebäcknamen ersetzt. 
+Also z.b.:
+1= Torte
+2= Kuchen
+3= Brötchen
+4= Croissant etc. 

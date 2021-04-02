@@ -2,9 +2,13 @@
 
 Torte: 
 - (A) Bisquittortenbodenbasis(aufbau)
-- (B) Anlassgebundenesfreigebäck (!!)
+- (B) Anlassgebundenesfreigebaeck (!!)
 - (C) Multischichtbisquitschichtenkonditorerzeugnis
 - (D) Sozialanerkanntesnachmittagsverzehrprodukt
 
-Teller: 
- - 
+Tortenstück:
+- (a) Anlassgebundenesfreigebäckbedarfsanteil
+
+Blech: 
+ - (a) Anlassgebundenesfreigebaecktransportbehelfnis
+ - (b) Backwahrentransportsystem
