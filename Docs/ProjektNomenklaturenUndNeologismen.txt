@@ -11,4 +11,4 @@ Tortenstück:
 
 Blech: 
  - (a) Anlassgebundenesfreigebaecktransportbehelfnis
- - (b) Backwahrentransportsystem
+ - (b) Backwahrentransportsystem.
