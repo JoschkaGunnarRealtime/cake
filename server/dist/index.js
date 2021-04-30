@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreigebaeck.js';
+import { AnlassgebundenesfreigebaeckbedarfsanteilModel } from './models/anlassgebundenesfreigebaeckbedarfsanteil.js';
 const app = express();
 dotenv.config({
     path: './config/config.env',
@@ -11,36 +12,6 @@ dotenv.config({
 app.use(morgan('combined'));
 app.use(express.json());
 app.use(cors());
-let tortenlager = {
-    Anlassgebundenesfreigebaeck: {
-        kuchenblechzuteilungsidentifikationsnummer: 1,
-        anlassgebundenesfreigebaeckbedarfsanteile: [
-            {
-                anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer: 1,
-                type: ['anlassgebundenesfreigebaeckbedarfsanteil'],
-                content: {
-                    url: 'https://www.youtube.com/watch?v=MAlSjtxy5ak',
-                    bedienungsanleitung: 'Learn',
-                },
-            },
-            {
-                anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer: 2,
-                type: ['anlassgebundenesfreigebaeckbedarfsanteil'],
-                content: {
-                    url: 'https://www.youtube.com/watch?v=_WH6cbwZ5m8',
-                    bedienungsanleitung: 'Learn faster',
-                }
-            },
-            {
-                anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer: 3,
-                type: ['zettel'],
-                content: {
-                    kommentarzettel: 'hm. legger',
-                }
-            },
-        ],
-    },
-};
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/anlassgebundesfreigebaeckmengenspeicherungsmedium';
 const AnlassgebundenesfreigebaeckMengenSpeicherungsEntität = await mongoose.connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -54,7 +25,7 @@ app.get('/anlassgebundenesfreigebaeck/:kuchenblechnummer', async (req, res) => {
     const mengeAllerAnlassgebundendenfreigebaecke = await anlassgebundenesfreigebaeckModel.findOne({
         id: req.param['kuchenblechnummer']
     });
-    res.status(200).json(tortenlager);
+    res.status(200).json(mengeAllerAnlassgebundendenfreigebaecke);
 });
 app.get('/anlassgebundenesfreigebaeck', async (req, res) => {
     const mengeAllerAnlassgebundendenfreigebaecke = await anlassgebundenesfreigebaeckModel.find();
@@ -75,26 +46,41 @@ app.post('/anlassgebundenesfreigebaeck', (req, res) => {
         console.log(err);
     });
 });
-app.delete('/anlassgebundenesfreigebaeck/:kuchenblechnummer/:kuchenstueck', async (req, res) => {
-    const anlassgebundenesfreigebaeck = await anlassgebundenesfreigebaeckModel.findById(req.params['kuchenblechnummer']);
-    if (anlassgebundenesfreigebaeck === null) {
-        res.status(404).json({});
-    }
-    else {
-        console.log('Vorher: ' + JSON.stringify(anlassgebundenesfreigebaeck));
-        anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile.forEach((anlassgebundenesfreigebaeckbedarfsanteil) => {
-            if (`${anlassgebundenesfreigebaeckbedarfsanteil.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}` === req.params['kuchenstueck']) {
+app.delete('/anlassgebundenesfreigebaeckbedarfsanteil/:kuchenstueck', async (req, res) => {
+    console.log('Kuchenstueck:', req.params['kuchenstueck']);
+    AnlassgebundenesfreigebaeckbedarfsanteilModel.findById(req.params['kuchenstueck'])
+        .then((temporärerRückgabewertZumZweckDerKonvertierung) => {
+        console.log('was ist das:', temporärerRückgabewertZumZweckDerKonvertierung);
+        const anlassgebundenesfreigebaeckbedarfsanteil = temporärerRückgabewertZumZweckDerKonvertierung;
+        if (temporärerRückgabewertZumZweckDerKonvertierung) {
+            if (anlassgebundenesfreigebaeckbedarfsanteil === null) {
+                console.log('No agfgba found - aborting...');
+                res.status(404).json({});
+            }
+            else {
+                console.log('Vorher: ' + JSON.stringify(anlassgebundenesfreigebaeckbedarfsanteil));
                 anlassgebundenesfreigebaeckbedarfsanteil.type.push('zumverzehrvorgemerkt');
+                AnlassgebundenesfreigebaeckbedarfsanteilModel.findByIdAndUpdate(req.params['kuchenstueck'], anlassgebundenesfreigebaeckbedarfsanteil)
+                    .then(() => {
+                    console.log('Nom Nom');
+                })
+                    .catch((err) => {
+                    console.log('Cake-Shortage detected!!!! FBI, open Up');
+                });
             }
-        });
-        console.log('Nachher: ' + JSON.stringify(anlassgebundenesfreigebaeck));
-        const mengeAllerAnlassgebundendenfreigebaecke = await anlassgebundenesfreigebaeckModel.findOneAndUpdate({ '_id': req.param['kuchenblechnummer'] }, {
-            '$set': {
-                'anlassgebundenesfreigebaeckbedarfsanteile[0].type': ["zumverzehrvorgemerkt"]
-            }
-        }).catch((err) => console.log(err));
-        res.status(200).json({});
-    }
+            console.log('Nachher: ' + JSON.stringify(anlassgebundenesfreigebaeckbedarfsanteil));
+            res.status(200).json({});
+        }
+        else {
+            console.log('FAAALSCH!!!!');
+            res.status(404).json({
+                error: 'Kein Anlassgebundenesfreigebaeckbedarfsanteil gefunden!'
+            });
+        }
+    })
+        .catch((err) => {
+        console.log('MongoDB Error : ' + JSON.stringify(err));
+    });
 });
 app.post('/anlassgebundenesfreigebaeck/:kuchenblechnummer/:kuchenstueck', (req, res) => {
     console.log(req.body);

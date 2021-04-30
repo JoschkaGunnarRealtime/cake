@@ -40,7 +40,10 @@ export default {
   methods: {
     toggleAnlassgebundenesfreigebaeckbedarfsanteil() {
       this.zuckerschriftbereich = true;
-      this.axios.delete(`/anlassgebundenesfreigebaeck/1/${this.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`, content);
+      this.axios.delete(`/anlassgebundenesfreigebaeckbedarfsanteil/${this.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`)
+      .then(() => {
+        console.log('pew pew! Nudelsuppe');
+      });
     }
   },
 }

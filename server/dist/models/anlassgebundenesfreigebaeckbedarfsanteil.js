@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-const Anlassgebundenesfreigebaeckbedarfsanteil = new mongoose.Schema({
+export const AnlassgebundenesfreigebaeckbedarfsanteilSchema = new mongoose.Schema({
     anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer: Number,
     type: Array,
     content: {
@@ -7,4 +7,4 @@ const Anlassgebundenesfreigebaeckbedarfsanteil = new mongoose.Schema({
         bedienungsanleitung: String,
     },
 });
-export default Anlassgebundenesfreigebaeckbedarfsanteil;
+export const AnlassgebundenesfreigebaeckbedarfsanteilModel = mongoose.model('Anlassgebundenesfreigebaeckbedarfsanteil', AnlassgebundenesfreigebaeckbedarfsanteilSchema);
