@@ -4,7 +4,6 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreigebaeck.js';
-import { AnlassgebundenesfreigebaeckbedarfsanteilModel } from './models/anlassgebundenesfreigebaeckbedarfsanteil.js';
 const app = express();
 dotenv.config({
     path: './config/config.env',
@@ -46,40 +45,34 @@ app.post('/anlassgebundenesfreigebaeck', (req, res) => {
         console.log(err);
     });
 });
-app.delete('/anlassgebundenesfreigebaeckbedarfsanteil/:kuchenstueck', async (req, res) => {
-    console.log('Kuchenstueck:', req.params['kuchenstueck']);
-    AnlassgebundenesfreigebaeckbedarfsanteilModel.findById(req.params['kuchenstueck'])
-        .then((temporärerRückgabewertZumZweckDerKonvertierung) => {
-        console.log('was ist das:', temporärerRückgabewertZumZweckDerKonvertierung);
-        const anlassgebundenesfreigebaeckbedarfsanteil = temporärerRückgabewertZumZweckDerKonvertierung;
-        if (temporärerRückgabewertZumZweckDerKonvertierung) {
-            if (anlassgebundenesfreigebaeckbedarfsanteil === null) {
-                console.log('No agfgba found - aborting...');
-                res.status(404).json({});
-            }
-            else {
-                console.log('Vorher: ' + JSON.stringify(anlassgebundenesfreigebaeckbedarfsanteil));
-                anlassgebundenesfreigebaeckbedarfsanteil.type.push('zumverzehrvorgemerkt');
-                AnlassgebundenesfreigebaeckbedarfsanteilModel.findByIdAndUpdate(req.params['kuchenstueck'], anlassgebundenesfreigebaeckbedarfsanteil)
-                    .then(() => {
-                    console.log('Nom Nom');
-                })
-                    .catch((err) => {
-                    console.log('Cake-Shortage detected!!!! FBI, open Up');
+app.delete('/anlassgebundenesfreigebaeck/:anlassgebundenesfreigebaeck/:bedarfsanteilsnummer', async (req, res) => {
+    console.log('anlassgebundenesfreigebaeck:', req.params['anlassgebundenesfreigebaeck']);
+    anlassgebundenesfreigebaeckModel.findById(req.params['anlassgebundenesfreigebaeck'])
+        .then((rueckgabewertZumZweckeDerKonvertierung) => {
+        if (rueckgabewertZumZweckeDerKonvertierung) {
+            const anlassgebundenesfreigebaeck = rueckgabewertZumZweckeDerKonvertierung;
+            anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile =
+                anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile.map((anlassgebundenesfreigebaeckbedarfsanteil) => {
+                    if (anlassgebundenesfreigebaeckbedarfsanteil._id.toString() === req.params['bedarfsanteilsnummer']) {
+                        anlassgebundenesfreigebaeckbedarfsanteil.type.push('zumverzehrvorgemerkt');
+                        console.log('Ich drücke auf den Kuchen!!');
+                    }
+                    return anlassgebundenesfreigebaeckbedarfsanteil;
                 });
-            }
-            console.log('Nachher: ' + JSON.stringify(anlassgebundenesfreigebaeckbedarfsanteil));
-            res.status(200).json({});
+            anlassgebundenesfreigebaeckModel.findByIdAndUpdate(req.params['anlassgebundenesfreigebaeck'], anlassgebundenesfreigebaeck)
+                .then(() => {
+                console.log('Und wech das Stück');
+            })
+                .catch((err) => {
+                console.log('Speichern geht nicht ... irgendwie ' + JSON.stringify(err));
+            });
         }
         else {
-            console.log('FAAALSCH!!!!');
-            res.status(404).json({
-                error: 'Kein Anlassgebundenesfreigebaeckbedarfsanteil gefunden!'
-            });
+            console.log('RückgabewertzurKonvertierung ist nicht ... also existiert nicht... also sie wissen schon');
         }
     })
         .catch((err) => {
-        console.log('MongoDB Error : ' + JSON.stringify(err));
+        console.log('Error getting AnlassgebundenesFreigebäck');
     });
 });
 app.post('/anlassgebundenesfreigebaeck/:kuchenblechnummer/:kuchenstueck', (req, res) => {

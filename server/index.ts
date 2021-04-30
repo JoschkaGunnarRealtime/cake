@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreigebaeck.js';
 import IAnlassgebundenesfreigebaeck from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeck.js';
 import IAnlassgebundenesfreigebaeckbedarfsanteil from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeckbedarfsanteil.js';
-import { AnlassgebundenesfreigebaeckbedarfsanteilModel } from './models/anlassgebundenesfreigebaeckbedarfsanteil.js';
 
 const app = express();
 dotenv.config({
@@ -56,42 +55,37 @@ app.post('/anlassgebundenesfreigebaeck', (req, res) => {
     });
 });
 
-app.delete('/anlassgebundenesfreigebaeckbedarfsanteil/:kuchenstueck', async (req: any, res: any) => {
-  console.log('Kuchenstueck:', req.params['kuchenstueck']);
-  AnlassgebundenesfreigebaeckbedarfsanteilModel.findById(req.params['kuchenstueck'])
-  .then((temporärerRückgabewertZumZweckDerKonvertierung) => {
-    console.log('was ist das:', temporärerRückgabewertZumZweckDerKonvertierung);
-    const anlassgebundenesfreigebaeckbedarfsanteil = temporärerRückgabewertZumZweckDerKonvertierung as unknown as IAnlassgebundenesfreigebaeckbedarfsanteil;
-    if (temporärerRückgabewertZumZweckDerKonvertierung) {
-      if (anlassgebundenesfreigebaeckbedarfsanteil === null) {
-        console.log('No agfgba found - aborting...');
-        res.status(404).json({});
-      } else {
-        console.log('Vorher: ' + JSON.stringify(anlassgebundenesfreigebaeckbedarfsanteil));
-        anlassgebundenesfreigebaeckbedarfsanteil.type.push('zumverzehrvorgemerkt');
-        AnlassgebundenesfreigebaeckbedarfsanteilModel.findByIdAndUpdate(req.params['kuchenstueck'], anlassgebundenesfreigebaeckbedarfsanteil)
-        .then(() => {
-          console.log('Nom Nom');
-        })
-        .catch((err) => {
-          console.log('Cake-Shortage detected!!!! FBI, open Up');
-        });
-      }
-      console.log('Nachher: ' + JSON.stringify(anlassgebundenesfreigebaeckbedarfsanteil));
-      res.status(200).json({});
-     } else {
-      console.log('FAAALSCH!!!!');
-      res.status(404).json({
-        error: 'Kein Anlassgebundenesfreigebaeckbedarfsanteil gefunden!'
+app.delete('/anlassgebundenesfreigebaeck/:anlassgebundenesfreigebaeck/:bedarfsanteilsnummer', async (req: any, res: any) => {
+  console.log('anlassgebundenesfreigebaeck:', req.params['anlassgebundenesfreigebaeck']);
+  anlassgebundenesfreigebaeckModel.findById(req.params['anlassgebundenesfreigebaeck'])
+  .then((rueckgabewertZumZweckeDerKonvertierung: any) => {
+    if(rueckgabewertZumZweckeDerKonvertierung) {
+      const anlassgebundenesfreigebaeck = rueckgabewertZumZweckeDerKonvertierung as IAnlassgebundenesfreigebaeck;
+      anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile = 
+        anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile.map((anlassgebundenesfreigebaeckbedarfsanteil) => {
+  
+        if(anlassgebundenesfreigebaeckbedarfsanteil._id.toString() === req.params['bedarfsanteilsnummer']) {
+          anlassgebundenesfreigebaeckbedarfsanteil.type.push('zumverzehrvorgemerkt');
+          console.log('Ich drücke auf den Kuchen!!');
+        }
+        return anlassgebundenesfreigebaeckbedarfsanteil;
       });
+      anlassgebundenesfreigebaeckModel.findByIdAndUpdate(req.params['anlassgebundenesfreigebaeck'], anlassgebundenesfreigebaeck)
+      .then(() => {
+        console.log('Und wech das Stück');
+      })
+      .catch((err) => {
+        console.log('Speichern geht nicht ... irgendwie ' + JSON.stringify(err));
+      });
+    } else {
+      console.log('RückgabewertzurKonvertierung ist nicht ... also existiert nicht... also sie wissen schon');
     }
+
   })
   .catch((err) => {
-    console.log('MongoDB Error : ' + JSON.stringify(err));
-  })
-  
-  
-
+    console.log('Error getting AnlassgebundenesFreigebäck');
+  });
+      
 });
 
 app.post('/anlassgebundenesfreigebaeck/:kuchenblechnummer/:kuchenstueck', (req: any, res: any) => {

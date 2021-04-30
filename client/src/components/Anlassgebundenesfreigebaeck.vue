@@ -9,6 +9,7 @@
             class="d-inline-flex">
           <Anlassgebundenesfreigebaeckbedarfsanteil
             v-if="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('anlassgebundenesfreigebaeckbedarfsanteil')"
+            :anlassgebundenesfreigebaeckidentifikationsnummer="anlassgebundenesfreigebaekidentifikationsnummer"
             :anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer="anlassgebundenesfreigebaeckbedarfsanteil._id"
             :bedienungsanleitung="anlassgebundenesfreigebaeckbedarfsanteil.content.bedienungsanleitung"
             :url="anlassgebundenesfreigebaeckbedarfsanteil.content.url"/>
@@ -33,6 +34,7 @@ export default {
   data() {
     return {
       anlassgebundenesfreigebaeckbedarfsanteile: [],
+      anlassgebundenesfreigebaekidentifikationsnummer: null,
       isLoading: true,
     };
   },
@@ -40,6 +42,7 @@ export default {
     this.axios.get('/anlassgebundenesfreigebaeck/1').then((response) => {
       console.log(response, 'Nudelsuppe');
       this.anlassgebundenesfreigebaeckbedarfsanteile = response.data.anlassgebundenesfreigebaeckbedarfsanteile;
+      this.anlassgebundenesfreigebaekidentifikationsnummer = response.data._id;
       this.isLoading = false;
     });
   },

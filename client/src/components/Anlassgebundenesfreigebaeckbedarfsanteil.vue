@@ -19,8 +19,12 @@
 export default {
   name: 'Anlassgebundenesfreigebaeckbedarfsanteil',
   props: {
+    anlassgebundenesfreigebaeckidentifikationsnummer: {
+      type: String,
+      required: true,
+    },
     anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer: {
-      type: Number,
+      type: String,
       required: true,
     },
     bedienungsanleitung: {
@@ -40,7 +44,7 @@ export default {
   methods: {
     toggleAnlassgebundenesfreigebaeckbedarfsanteil() {
       this.zuckerschriftbereich = true;
-      this.axios.delete(`/anlassgebundenesfreigebaeckbedarfsanteil/${this.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`)
+      this.axios.delete(`/anlassgebundenesfreigebaeck/${this.anlassgebundenesfreigebaeckidentifikationsnummer}/${this.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`)
       .then(() => {
         console.log('pew pew! Nudelsuppe');
       });
