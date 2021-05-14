@@ -12,3 +12,6 @@ Tortenstück:
 Blech: 
  - (a) Anlassgebundenesfreigebaecktransportbehelfnis
  - (b) Backwahrentransportsystem.
+
+ Kuchenverschlüsselung:
+ - (a) BackwarenZerUndNeuVerbroeselungsSystem

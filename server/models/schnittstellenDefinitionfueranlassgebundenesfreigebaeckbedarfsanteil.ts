@@ -7,6 +7,7 @@ export default interface IAnlassgebundenesfreigebaeckbedarfsanteil {
     content: {
         url: String,
         bedienungsanleitung: String,
+        feedbackZettel: String,
     };
 
 }

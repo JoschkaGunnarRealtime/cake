@@ -6,6 +6,7 @@ const Anlassgebundenesfreigebaeckbedarfsanteil = new mongoose.Schema({
     content: {
         url: String,
         bedienungsanleitung: String,
+        feedbackZettel: String,
     },
 });
 

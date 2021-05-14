@@ -12,10 +12,11 @@
             :anlassgebundenesfreigebaeckidentifikationsnummer="anlassgebundenesfreigebaekidentifikationsnummer"
             :anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer="anlassgebundenesfreigebaeckbedarfsanteil._id"
             :bedienungsanleitung="anlassgebundenesfreigebaeckbedarfsanteil.content.bedienungsanleitung"
-            :url="anlassgebundenesfreigebaeckbedarfsanteil.content.url"/>
+            :url="anlassgebundenesfreigebaeckbedarfsanteil.content.url"
+            :zumVerzehrVorgemerkt="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('zumverzehrvorgemerkt')"/>
           <Kommentarzettel 
             v-if="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('zettel')"
-            :kommentarzettel="'oh noes!'" />
+            :kommentarzettel="anlassgebundenesfreigebaeckbedarfsanteil.content.feedbackZettel" />
         </div>
       </div>
     </div>
@@ -24,6 +25,7 @@
 <script>
 import Anlassgebundenesfreigebaeckbedarfsanteil from './Anlassgebundenesfreigebaeckbedarfsanteil';
 import Kommentarzettel from './Kommentarzettel.vue';
+import zusammenbroeseln from '../helper/BackwarenZerUndNeuVerbroeselungsSystem';
 
 export default {
   name: 'Anlassgebundenesfreigebaeck',
@@ -39,8 +41,8 @@ export default {
     };
   },
   beforeMount() {
-    this.axios.get('/anlassgebundenesfreigebaeck/1').then((response) => {
-      console.log(response, 'Nudelsuppe');
+    const zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer = zusammenbroeseln('1');
+    this.axios.get(`/anlassgebundenesfreigebaeck/${zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`).then((response) => {
       this.anlassgebundenesfreigebaeckbedarfsanteile = response.data.anlassgebundenesfreigebaeckbedarfsanteile;
       this.anlassgebundenesfreigebaekidentifikationsnummer = response.data._id;
       this.isLoading = false;

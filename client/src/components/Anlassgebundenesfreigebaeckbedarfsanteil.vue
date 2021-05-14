@@ -1,6 +1,6 @@
 <template>
   <v-card @click="toggleAnlassgebundenesfreigebaeckbedarfsanteil">
-    <v-card-title>tortenstueckenstück</v-card-title>
+    <v-card-title>tortenstueckenstück {{ zumVerzehrVorgemerkt ? 'ZVV' : '' }}</v-card-title>
     <v-dialog
         v-model="zuckerschriftbereich"
         transition="dialog-bottom-transition"
@@ -9,6 +9,10 @@
           <v-card-title>{{ bedienungsanleitung }}</v-card-title>
           <v-card-text>
             <p> {{ url }} </p>
+            <v-textarea 
+            v-model="feedbackZettel"
+            auto-grow />
+            <v-btn @click="essen">ESSEN</v-btn>
           </v-card-text>
         </v-card>
     </v-dialog>
@@ -16,6 +20,8 @@
 </template>
 
 <script>
+import zusammenbroeseln from '../helper/BackwarenZerUndNeuVerbroeselungsSystem';
+
 export default {
   name: 'Anlassgebundenesfreigebaeckbedarfsanteil',
   props: {
@@ -35,19 +41,44 @@ export default {
       type: String,
       required: true,
     },
+    zumVerzehrVorgemerkt: {
+      type: Boolean,
+      required: true,
+    }
   },
   data() {
     return {
       zuckerschriftbereich: false,
+      feedbackZettel: '',
     };
   },
+  computed: {
+    zusammengebroeselteAnlassgebundenesfreigebaeckidentifikationsnummer() {
+      return zusammenbroeseln(this.anlassgebundenesfreigebaeckidentifikationsnummer);
+    },
+    zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer() {
+      return zusammenbroeseln(this.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer);
+    }
+  },
   methods: {
-    toggleAnlassgebundenesfreigebaeckbedarfsanteil() {
-      this.zuckerschriftbereich = true;
-      this.axios.delete(`/anlassgebundenesfreigebaeck/${this.anlassgebundenesfreigebaeckidentifikationsnummer}/${this.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`)
+    essen() {
+      const data = {
+        feedbackZettel: this.feedbackZettel,
+      }
+      this.axios.post(`/anlassgebundenesfreigebaeck/${this.zusammengebroeselteAnlassgebundenesfreigebaeckidentifikationsnummer}/${this.zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`, data)
       .then(() => {
-        console.log('pew pew! Nudelsuppe');
+        console.log('pew pew! gegessen');
+        this.zuckerschriftbereich = false; 
       });
+    },
+    toggleAnlassgebundenesfreigebaeckbedarfsanteil() {
+      if (!this.zumVerzehrVorgemerkt) {
+        this.zuckerschriftbereich = true; 
+        this.axios.delete(`/anlassgebundenesfreigebaeck/${this.zusammengebroeselteAnlassgebundenesfreigebaeckidentifikationsnummer}/${this.zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`)
+        .then(() => {
+          console.log('pew pew! Nudelsuppe');
+        });
+      }
     }
   },
 }
