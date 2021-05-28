@@ -3,21 +3,28 @@
       <v-progress-circular indeterminate v-if="isLoading"/>
       <div v-else>
         <h1>Hallo ich bin ein Anlass gebundenes Freigebäck!</h1>
-        <div
-            v-for="(anlassgebundenesfreigebaeckbedarfsanteil, index) in anlassgebundenesfreigebaeckbedarfsanteile"
-            :key="index"
-            class="d-inline-flex">
-          <Anlassgebundenesfreigebaeckbedarfsanteil
-            v-if="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('anlassgebundenesfreigebaeckbedarfsanteil')"
-            :anlassgebundenesfreigebaeckidentifikationsnummer="anlassgebundenesfreigebaekidentifikationsnummer"
-            :anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer="anlassgebundenesfreigebaeckbedarfsanteil._id"
-            :bedienungsanleitung="anlassgebundenesfreigebaeckbedarfsanteil.content.bedienungsanleitung"
-            :url="anlassgebundenesfreigebaeckbedarfsanteil.content.url"
-            :zumVerzehrVorgemerkt="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('zumverzehrvorgemerkt')"/>
-          <Kommentarzettel 
-            v-if="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('zettel')"
-            :kommentarzettel="anlassgebundenesfreigebaeckbedarfsanteil.content.feedbackZettel" />
-        </div>
+          <v-row>
+            <v-col
+              v-for="(anlassgebundenesfreigebaeckbedarfsanteil, index) in anlassgebundenesfreigebaeckbedarfsanteile"
+              :key="index"
+              class="d-flex child-flex"
+              cols="4"
+            >
+              <Anlassgebundenesfreigebaeckbedarfsanteil
+                v-if="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('anlassgebundenesfreigebaeckbedarfsanteil')"
+                :anlassgebundenesfreigebaeckidentifikationsnummer="anlassgebundenesfreigebaekidentifikationsnummer"
+                :anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer="anlassgebundenesfreigebaeckbedarfsanteil._id"
+                :visuellesgeschmacksmuster="anlassgebundenesfreigebaeckbedarfsanteil.content.visuellesgeschmacksmuster"
+                :bedienungsanleitung="anlassgebundenesfreigebaeckbedarfsanteil.content.bedienungsanleitung"
+                :url="anlassgebundenesfreigebaeckbedarfsanteil.content.url"
+                :zumVerzehrVorgemerkt="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('zumverzehrvorgemerkt')"/>
+              <ZumVerzehrVorgemerkterTeller
+                v-if="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('zumverzehrvorgemerkt')"/>
+              <Kommentarzettel 
+                v-if="anlassgebundenesfreigebaeckbedarfsanteil.type.includes('zettel')"
+                :kommentarzettel="anlassgebundenesfreigebaeckbedarfsanteil.content.feedbackZettel" />
+            </v-col>
+          </v-row>
       </div>
     </div>
 </template>
@@ -25,12 +32,14 @@
 <script>
 import Anlassgebundenesfreigebaeckbedarfsanteil from './Anlassgebundenesfreigebaeckbedarfsanteil';
 import Kommentarzettel from './Kommentarzettel.vue';
+import ZumVerzehrVorgemerkterTeller from './ZumVerzehrVorgemerkterTeller';
 import zusammenbroeseln from '../helper/BackwarenZerUndNeuVerbroeselungsSystem';
 
 export default {
   name: 'Anlassgebundenesfreigebaeck',
   components: {
     Anlassgebundenesfreigebaeckbedarfsanteil,
+    ZumVerzehrVorgemerkterTeller,
     Kommentarzettel,
   },
   data() {
@@ -41,7 +50,7 @@ export default {
     };
   },
   beforeMount() {
-    const zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer = zusammenbroeseln('1');
+    const zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer = zusammenbroeseln('60b1423431deee362852c655');
     this.axios.get(`/anlassgebundenesfreigebaeck/${zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`).then((response) => {
       this.anlassgebundenesfreigebaeckbedarfsanteile = response.data.anlassgebundenesfreigebaeckbedarfsanteile;
       this.anlassgebundenesfreigebaekidentifikationsnummer = response.data._id;

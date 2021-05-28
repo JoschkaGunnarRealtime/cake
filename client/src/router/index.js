@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Einarbeitstitel from '../views/Einarbeitstitel.vue'
+import Anlassgebundenesfreigebaeckblaupauseneditor from '../views/Anlassgebundenesfreigebaeckblaupauseneditor.vue';
 
 Vue.use(VueRouter)
 
@@ -8,7 +9,12 @@ const routes = [
   {
     path: '/',
     name: 'Blech',
-    component: Einarbeitstitel
+    component: Einarbeitstitel,
+  },
+  {
+    path: '/blaupause',
+    name: 'Blaupause',
+    component: Anlassgebundenesfreigebaeckblaupauseneditor,
   },
 ]
 

@@ -3,7 +3,7 @@
 export default interface IAnlassgebundenesfreigebaeckbedarfsanteil {
     _id: string;
     anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer: number;
-    type: Array<string>;
+    type: String;
     content: {
         url: String,
         bedienungsanleitung: String,

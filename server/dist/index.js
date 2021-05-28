@@ -24,6 +24,7 @@ const BackwarenVerschluesselungsTabelle = {
 };
 const backwarenEntschluesselungsModul = (req, res, next) => {
     for (const [key, value] of Object.entries(BackwarenVerschluesselungsTabelle)) {
+        console.log(req.url);
         req.url = req.url.replaceAll(key, value);
     }
     console.log('Hochgeheime Entschluesselung: ' + req.url);
@@ -46,9 +47,11 @@ const AnlassgebundenesfreigebaeckMengenSpeicherungsEntität = await mongoose.con
 });
 console.log('Database connected!');
 app.get('/anlassgebundenesfreigebaeck/:anlassgebundenesfreigebaeck', async (req, res) => {
+    console.log('param', req.params["anlassgebundenesfreigebaeck"]);
     const mengeAllerAnlassgebundendenfreigebaecke = await anlassgebundenesfreigebaeckModel.findOne({
-        id: req.param['anlassgebundenesfreigebaeck']
+        _id: req.params['anlassgebundenesfreigebaeck']
     });
+    console.log(mengeAllerAnlassgebundendenfreigebaecke);
     res.status(200).json(mengeAllerAnlassgebundendenfreigebaecke);
 });
 app.get('/anlassgebundenesfreigebaeck', async (req, res) => {
@@ -57,9 +60,10 @@ app.get('/anlassgebundenesfreigebaeck', async (req, res) => {
 });
 app.post('/anlassgebundenesfreigebaeck', (req, res) => {
     anlassgebundenesfreigebaeckModel.create(req.body)
-        .then(() => {
+        .then((kuchen) => {
         res.status(200).json({
             message: 'Danke für die Torte',
+            id: kuchen._id,
         });
     })
         .catch((err) => {
@@ -77,7 +81,7 @@ app.delete('/anlassgebundenesfreigebaeck/:anlassgebundenesfreigebaeck/:bedarfsan
             anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile =
                 anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile.map((anlassgebundenesfreigebaeckbedarfsanteil) => {
                     if (anlassgebundenesfreigebaeckbedarfsanteil._id.toString() === req.params['bedarfsanteilsnummer']) {
-                        anlassgebundenesfreigebaeckbedarfsanteil.type.push('zumverzehrvorgemerkt');
+                        anlassgebundenesfreigebaeckbedarfsanteil.type = 'zumverzehrvorgemerkt';
                         console.log('Ich drücke auf den Kuchen!!');
                     }
                     return anlassgebundenesfreigebaeckbedarfsanteil;
@@ -107,7 +111,7 @@ app.post('/anlassgebundenesfreigebaeck/:anlassgebundenesfreigebaeck/:bedarfsante
             anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile =
                 anlassgebundenesfreigebaeck.anlassgebundenesfreigebaeckbedarfsanteile.map((anlassgebundenesfreigebaeckbedarfsanteil) => {
                     if (anlassgebundenesfreigebaeckbedarfsanteil._id.toString() === req.params['bedarfsanteilsnummer']) {
-                        anlassgebundenesfreigebaeckbedarfsanteil.type = ['zettel'];
+                        anlassgebundenesfreigebaeckbedarfsanteil.type = 'zettel';
                         anlassgebundenesfreigebaeckbedarfsanteil.content.feedbackZettel = req.body.feedbackZettel;
                         console.log(JSON.stringify(anlassgebundenesfreigebaeckbedarfsanteil));
                         console.log('Das Feedback ist angekommen!');

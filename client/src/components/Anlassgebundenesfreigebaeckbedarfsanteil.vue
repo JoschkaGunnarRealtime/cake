@@ -1,6 +1,10 @@
 <template>
-  <v-card @click="toggleAnlassgebundenesfreigebaeckbedarfsanteil">
-    <v-card-title>tortenstueckenstück {{ zumVerzehrVorgemerkt ? 'ZVV' : '' }}</v-card-title>
+  <v-card @click="toggleAnlassgebundenesfreigebaeckbedarfsanteil" elevation="0">
+    <v-card-title>
+      <v-img 
+        class="cake"
+        :src="`/assets/anlassgebundenesfreigebaeckanteile/${visuellesgeschmacksmuster}.png`"/>
+    </v-card-title>
     <v-dialog
         v-model="zuckerschriftbereich"
         transition="dialog-bottom-transition"
@@ -30,6 +34,10 @@ export default {
       required: true,
     },
     anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer: {
+      type: String,
+      required: true,
+    },
+    visuellesgeschmacksmuster: {
       type: String,
       required: true,
     },
@@ -84,6 +92,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.cake {
+  width: 20%;
+  height: 20%;
+}
 </style>
