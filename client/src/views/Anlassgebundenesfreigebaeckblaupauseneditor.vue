@@ -72,6 +72,8 @@
 </template>
 
 <script>
+import config from '../../config/config.js';
+
 export default {
   name: 'Anlassgebundenesfreigebaeckblaupauseneditor',
   data() {
@@ -99,7 +101,7 @@ export default {
       }
       this.axios.post(`/anlassgebundenesfreigebaeck`, data)
       .then((response) => {
-        this.anlassgebundenesfreigebaeckidentifikationsnummerAdresse = `http://localhost:8081/😲⏪🍰/${response.data.id}`;
+        this.anlassgebundenesfreigebaeckidentifikationsnummerAdresse = `${config.frontendUrl}/😲⏪🍰/${response.data.id}`;
         console.log('pew pew! fertisch!');
       });
     },
