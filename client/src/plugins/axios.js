@@ -1,7 +1,8 @@
 "use strict";
 
 import Vue from 'vue';
-import axios from "axios";
+import axios from 'axios';
+import vueConfig from '../../config/config';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -9,7 +10,7 @@ import axios from "axios";
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let config = {
-  baseURL: "http://localhost:3000",
+  baseURL: `${vueConfig.backendUrl}:${vueConfig.backendPort}`,
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 };

@@ -26,5 +26,18 @@ services:
         networks:
             - globales_kuchennetz
 
+    cake_frontend:
+        build: ./client/.
+        container_name: cake_client
+        depends_on: 
+            - cake_backend
+        environment: 
+            - PUID=1000
+            - PGID=1000
+        ports: 
+            - 8080:8080
+        networks:
+            - globales_kuchennetz        
+
 networks:
     globales_kuchennetz:
