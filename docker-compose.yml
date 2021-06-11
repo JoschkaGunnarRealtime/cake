@@ -25,6 +25,7 @@ services:
             - 3000:3000
         networks:
             - globales_kuchennetz
+            - web
         labels:
             - "traefik.enable=true"
 
@@ -51,6 +52,7 @@ services:
             - 8080:8080
         networks:
             - globales_kuchennetz      
+            - web
         labels:
             - "traefik.enable=true"
 
@@ -66,4 +68,6 @@ services:
             - "traefik.http.routers.kuchen.tls.certresolver=myresolver"  
 
 networks:
+    web:
+        external: true
     globales_kuchennetz:
