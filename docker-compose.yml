@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.0"
 services: 
     cake_mongodb:
         image: mongo
@@ -30,15 +30,8 @@ services:
             - "traefik.enable=true"
 
             # http
-            - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
             - "traefik.http.routers.kuchen-api-http.rule=Host(`api.kuchen.jetzt`)"
             - "traefik.http.routers.kuchen-api.entrypoints=web"
-            - "traefik.http.routers.kuchen-api-http.middlewares=https_redirect"
-
-            # https
-            - "traefik.http.routers.kuchen-api.rule=Host(`api.kuchen.jetzt`)"
-            - "traefik.http.routers.kuchen-api.entrypoints=websecure"
-            - "traefik.http.routers.kuchen-api.tls.certresolver=myresolver"  
 
     cake_frontend:
         build: ./client/.
