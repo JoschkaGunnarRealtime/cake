@@ -24,4 +24,5 @@ pnpm-debug.log*
 *.sw?
 node_modules
 config/config.env
-
+client/config/config.js
+server/config/config.env
