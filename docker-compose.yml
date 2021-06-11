@@ -10,3 +10,21 @@ services:
             - ./database:/data/db 
         ports: 
             - 27017:27017
+        networks: 
+            - globales_kuchennetz
+
+    cake_backend: 
+        build: ./server/.
+        container_name: cake_backend
+        depends_on: 
+            - cake_mongodb
+        environment: 
+            - PUID=1000
+            - PGID=1000
+        ports: 
+            - 3000:3000
+        networks:
+            - globales_kuchennetz
+
+networks:
+    globales_kuchennetz:

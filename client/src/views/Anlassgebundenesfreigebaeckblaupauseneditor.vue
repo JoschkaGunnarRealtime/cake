@@ -1,7 +1,9 @@
 <template>
   <v-row>
     <v-col cols="2" />
-    <v-col cols="8">
+    <v-col 
+    v-if="!anlassgebundenesfreigebaeckidentifikationsnummerAdresse"
+    cols="8">
       <v-card class="mt-5">
         <v-card-title>Kuchen Blaupause</v-card-title>
         <v-card-content>
@@ -52,6 +54,19 @@
         </v-card-content>
       </v-card>
     </v-col>
+    <v-col 
+    v-else
+    cols="8">
+      <v-row>
+        <v-col cols="6">
+          Hier der Link um deinen neu gebackenen Kuchen zu teilen:
+        </v-col>
+        <v-col cols="6">
+          <v-text-field disabled v-model="anlassgebundenesfreigebaeckidentifikationsnummerAdresse"/>
+          <v-btn @click="kopiereAdresseZumAnlassgebundenenfreigebaeck">Link in die Zwischenablage kopieren</v-btn>
+        </v-col>
+      </v-row>
+    </v-col>
     <v-col cols="2" />
   </v-row>
 </template>
@@ -61,6 +76,7 @@ export default {
   name: 'Anlassgebundenesfreigebaeckblaupauseneditor',
   data() {
     return {
+      anlassgebundenesfreigebaeckidentifikationsnummerAdresse: '',
       anlassgebundenesfreigebaeckName: undefined,
       anlassgebundenesfreigebaeckbedarfsanteile: [],
     };
@@ -82,10 +98,19 @@ export default {
         anlassgebundenesfreigebaeckbedarfsanteile: this.anlassgebundenesfreigebaeckbedarfsanteile,
       }
       this.axios.post(`/anlassgebundenesfreigebaeck`, data)
-      .then(() => {
+      .then((response) => {
+        this.anlassgebundenesfreigebaeckidentifikationsnummerAdresse = `http://localhost:8081/😲⏪🍰/${response.data.id}`;
         console.log('pew pew! fertisch!');
       });
-    }
+    },
+    kopiereAdresseZumAnlassgebundenenfreigebaeck() {
+        const el = document.createElement('textarea');
+        el.value = this.anlassgebundenesfreigebaeckidentifikationsnummerAdresse;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+    },
   }
 }
 </script>

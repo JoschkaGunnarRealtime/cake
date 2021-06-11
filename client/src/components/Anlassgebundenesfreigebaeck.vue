@@ -50,7 +50,7 @@ export default {
     };
   },
   beforeMount() {
-    const zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer = zusammenbroeseln('60b1423431deee362852c655');
+    const zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer = zusammenbroeseln(this.$route.params.anlassgebundenesfreigebaeckidentifikationsnummer);
     this.axios.get(`/anlassgebundenesfreigebaeck/${zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer}`).then((response) => {
       this.anlassgebundenesfreigebaeckbedarfsanteile = response.data.anlassgebundenesfreigebaeckbedarfsanteile;
       this.anlassgebundenesfreigebaekidentifikationsnummer = response.data._id;

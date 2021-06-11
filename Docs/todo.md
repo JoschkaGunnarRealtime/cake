@@ -1,13 +1,14 @@
 # Todo für die Bäcker
 
 * [x] zumVerzehrVorgemerkt'e Stücke aus der UI nehmen
-* [ ] Feedback Zettel
-  * [ ] möglich machen 
-  * [ ] sichtbar anzeigen
+* [x] Feedback Zettel
+  * [x] möglich machen 
+  * [ x sichtbar anzeigen
 * [ ] Jest / Cypress ?
-* [ ] Bunt machen :3
-* [ ] Bäcker ansicht
-  * [ ] Kuchen erstellen
-  * [ ] Kuchen befüllen
+* [v] Bunt machen :3
+* [v] Bäcker ansicht
+  * [x] Kuchen erstellen
+  * [x] Kuchen befüllen
   * [ ] Teilbaren Link herausbekommen (lange und kurze URL)
-  * [ ] Bediendungsanleitung für Anlassgebu8ndenesfreigebäckbedarfsanteil
+  * [ ] Bedienungsanleitung für Anlassgebu8ndenesfreigebäckbedarfsanteil
+* [ ] Landing page

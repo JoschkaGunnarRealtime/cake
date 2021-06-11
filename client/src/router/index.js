@@ -12,6 +12,11 @@ const routes = [
     component: Einarbeitstitel,
   },
   {
+    path: '/%F0%9F%98%B2%E2%8F%AA%F0%9F%8D%B0/:anlassgebundenesfreigebaeckidentifikationsnummer',
+    name: '😲⏪🍰',
+    component: Einarbeitstitel,
+  },
+  {
     path: '/blaupause',
     name: 'Blaupause',
     component: Anlassgebundenesfreigebaeckblaupauseneditor,
