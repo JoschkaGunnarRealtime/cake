@@ -25,6 +25,19 @@ services:
             - 3000:3000
         networks:
             - globales_kuchennetz
+        labels:
+            - "traefik.enable=true"
+
+            # http
+            - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+            - "traefik.http.routers.kuchen-http.rule=Host(`api.kuchen.jetzt`)"
+            - "traefik.http.routers.kuchen.entrypoints=web"
+            - "traefik.http.routers.kuchen-http.middlewares=https_redirect"
+
+            # https
+            - "traefik.http.routers.kuchen.rule=Host(`api.kuchen.jetzt`)"
+            - "traefik.http.routers.kuchen.entrypoints=websecure"
+            - "traefik.http.routers.kuchen.tls.certresolver=myresolver"  
 
     cake_frontend:
         build: ./client/.
