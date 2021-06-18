@@ -5,6 +5,7 @@ client/dist
 database
 
 # local env files
+config.env
 .env.local
 .env.*.local
 
