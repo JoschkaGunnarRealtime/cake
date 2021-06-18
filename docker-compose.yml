@@ -3,6 +3,8 @@ services:
     cake_mongodb:
         image: mongo
         container_name: cake_mongodb
+        env_file:
+            - ./server/config/config.env
         environment: 
             - PUID=1000
             - PGID=1000
