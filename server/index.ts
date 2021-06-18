@@ -57,6 +57,7 @@ const AnlassgebundenesfreigebaeckMengenSpeicherungsEntität = await mongoose.con
   useCreateIndex: true,
   useFindAndModify: false,
   useUnifiedTopology: true,
+  authSource: 'admin',
   user: process.env.MONGO_INITDB_ROOT_USERNAME,
   pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
 });
