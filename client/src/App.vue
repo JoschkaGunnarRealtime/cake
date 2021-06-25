@@ -1,7 +1,11 @@
 <template>
   <v-app>
     <v-app-bar color="primary" app>
-      <v-app-bar-title>Der digitale Kuchen "Hier könnte ihre Werbung stehen"</v-app-bar-title>
+      <v-app-bar-title>
+        <v-app-bar-nav-icon @click="zurBegruessungsseite">
+          <v-icon>fa-birthday-cake</v-icon>
+        </v-app-bar-nav-icon>
+      </v-app-bar-title>
     </v-app-bar>
     <v-main>
       <router-view/>
@@ -13,5 +17,10 @@
 
 export default {
   name: 'App',
+  methods: {
+    zurBegruessungsseite() {
+      this.$router.push('/');
+    }
+  }
 };
 </script>

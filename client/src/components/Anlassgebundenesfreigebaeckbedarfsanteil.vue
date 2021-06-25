@@ -8,11 +8,11 @@
     <v-dialog
         v-model="zuckerschriftbereich"
         transition="dialog-bottom-transition"
-        max-width="600">
+        max-width="1000">
         <v-card>
           <v-card-title>{{ bedienungsanleitung }}</v-card-title>
           <v-card-text>
-            <p> {{ url }} </p>
+            <kuchen-inhalts-darsteller :url="url" />
             <v-textarea 
             v-model="feedbackZettel"
             auto-grow />
@@ -25,8 +25,11 @@
 
 <script>
 import zusammenbroeseln from '../helper/BackwarenZerUndNeuVerbroeselungsSystem';
+import { getIdFromURL } from 'vue-youtube-embed';
+import KuchenInhaltsDarsteller from './KuchenInhaltsDarsteller.vue';
 
 export default {
+  components: { KuchenInhaltsDarsteller },
   name: 'Anlassgebundenesfreigebaeckbedarfsanteil',
   props: {
     anlassgebundenesfreigebaeckidentifikationsnummer: {
@@ -66,7 +69,10 @@ export default {
     },
     zusammengebroeselteAnlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer() {
       return zusammenbroeseln(this.anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer);
-    }
+    },
+    videoId() {
+      return getIdFromURL(this.url);
+    },
   },
   methods: {
     essen() {

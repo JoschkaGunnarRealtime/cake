@@ -10,5 +10,5 @@
   * [x] Kuchen erstellen
   * [x] Kuchen befüllen
   * [ ] Teilbaren Link herausbekommen (lange und kurze URL)
-  * [ ] Bedienungsanleitung für Anlassgebu8ndenesfreigebäckbedarfsanteil
-* [ ] Landing page
+  * [x] Bedienungsanleitung für Anlassgebundenesfreigebäckbedarfsanteil
+* [x] Landing page

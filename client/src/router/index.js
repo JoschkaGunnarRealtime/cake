@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Einarbeitstitel from '../views/Einarbeitstitel.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Begruessungsseite from '../views/Begruessungsseite.vue';
+import Einarbeitstitel from '../views/Einarbeitstitel.vue';
 import Anlassgebundenesfreigebaeckblaupauseneditor from '../views/Anlassgebundenesfreigebaeckblaupauseneditor.vue';
 
 Vue.use(VueRouter)
@@ -9,7 +10,7 @@ const routes = [
   {
     path: '/',
     name: 'Blech',
-    component: Einarbeitstitel,
+    component: Begruessungsseite,
   },
   {
     path: '/%F0%9F%98%B2%E2%8F%AA%F0%9F%8D%B0/:anlassgebundenesfreigebaeckidentifikationsnummer',
@@ -25,7 +26,6 @@ const routes = [
 
 const router = new VueRouter({
   mode: 'history',
-  base: 'http://localhost:8080',
   routes
 })
 
