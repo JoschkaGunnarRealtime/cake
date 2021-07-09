@@ -18,6 +18,8 @@ services:
     cake_backend: 
         build: ./server/.
         container_name: cake_backend
+        volumes:
+            - ./server:/app
         depends_on: 
             - cake_mongodb
         environment: 
