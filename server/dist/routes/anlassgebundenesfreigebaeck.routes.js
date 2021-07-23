@@ -6,6 +6,6 @@ export default (app) => {
     router.get('/:anlassgebundenesfreigebaeck', anlassgebundenesfreigebaeckController.getCake);
     router.post('/', anlassgebundenesfreigebaeckController.createCake);
     router.delete('/:anlassgebundenesfreigebaeck/:bedarfsanteilsnummer', anlassgebundenesfreigebaeckController.deleteCake);
-    router.post(':anlassgebundenesfreigebaeck/:bedarfsanteilsnummer', anlassgebundenesfreigebaeckController.postFeedback);
+    router.post('/:anlassgebundenesfreigebaeck/:bedarfsanteilsnummer', anlassgebundenesfreigebaeckController.postFeedback);
     app.use('/anlassgebundenesfreigebaeck', router);
 };

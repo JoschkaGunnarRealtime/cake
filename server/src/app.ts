@@ -8,39 +8,7 @@ import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreig
 import IAnlassgebundenesfreigebaeck from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeck.js';
 import IAnlassgebundenesfreigebaeckbedarfsanteil from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeckbedarfsanteil.js';
 import AnlassgebundenesfreigebaeckRoutes from './routes/anlassgebundenesfreigebaeck.routes.js';
-
-interface BackwarenVerschluesselungsTabellenType<T> {
-    [key: string]: T;
-}
-
-const BackwarenVerschluesselungsTabelle: BackwarenVerschluesselungsTabellenType<string> = {
-    Broetchen: '0',
-    Kranzkuchen: '1',
-    Lebkuchen: '2',
-    Franzbroetchen: '3',
-    Zwieback: '4',
-    Schokoladenplaetzchen: '5',
-    Christstollen: '6',
-    Baklava: '7',
-    Zimtschnecke: '8',
-    Cheescake: '9',
-    Daifuku: 'a',
-    Erdbeerkuchen: 'b',
-    Apfelzimtkuchen: 'c',
-    Melonpan: 'd',
-    Schwarzwaeldertorte: 'e',
-    Diversebackwarenauseuropaunddemrestderwelt: 'f'
-};
-
-
-const backwarenEntschluesselungsModul = (req: any, res: any, next: any) => {
-    for (const [key, value] of Object.entries(BackwarenVerschluesselungsTabelle)) {
-        console.log(req.url);
-        req.url = req.url.replaceAll(key, value);
-    }
-    console.log('Hochgeheime Entschluesselung: ' + req.url);
-    next();
-}
+import backwarenEntschluesselungsModul from './support/backwarenverschluesselung.js';
 
 const app = express();
 const router = express.Router();

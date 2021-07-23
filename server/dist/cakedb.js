@@ -2,9 +2,10 @@ import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreig
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 export default class CakeDB {
+    MONGO_URI = '';
+    AnlassgebundenesfreigebaeckMengenSpeicherungsEntität;
+    bConnected = false;
     constructor() {
-        this.MONGO_URI = '';
-        this.bConnected = false;
         dotenv.config({
             path: './config/config.env',
         });

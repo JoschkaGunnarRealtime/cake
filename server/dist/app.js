@@ -4,32 +4,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import AnlassgebundenesfreigebaeckRoutes from './routes/anlassgebundenesfreigebaeck.routes.js';
-const BackwarenVerschluesselungsTabelle = {
-    Broetchen: '0',
-    Kranzkuchen: '1',
-    Lebkuchen: '2',
-    Franzbroetchen: '3',
-    Zwieback: '4',
-    Schokoladenplaetzchen: '5',
-    Christstollen: '6',
-    Baklava: '7',
-    Zimtschnecke: '8',
-    Cheescake: '9',
-    Daifuku: 'a',
-    Erdbeerkuchen: 'b',
-    Apfelzimtkuchen: 'c',
-    Melonpan: 'd',
-    Schwarzwaeldertorte: 'e',
-    Diversebackwarenauseuropaunddemrestderwelt: 'f'
-};
-const backwarenEntschluesselungsModul = (req, res, next) => {
-    for (const [key, value] of Object.entries(BackwarenVerschluesselungsTabelle)) {
-        console.log(req.url);
-        req.url = req.url.replaceAll(key, value);
-    }
-    console.log('Hochgeheime Entschluesselung: ' + req.url);
-    next();
-};
+import backwarenEntschluesselungsModul from './support/backwarenverschluesselung.js';
 const app = express();
 const router = express.Router();
 dotenv.config({
