@@ -1,0 +1,6 @@
+{
+  "preset": "@vue/cli-plugin-unit-jest",
+  "transform": {
+    "^.+\\.(js|jsx)?$": "babel-jest"
+  }
+}
