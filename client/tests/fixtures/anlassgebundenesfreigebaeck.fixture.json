@@ -1,0 +1,35 @@
+{
+    "_id": "610d4d8647906d0027718498",
+    "anlassgebundenesfreigebaeck": "Test Kuchen",
+    "anlassgebundenesfreigebaeckbedarfsanteile": [
+        {
+            "content": {
+                "url": "Zum Anschauen verfügbares Anlassgebundenesfreigebaeckanteil",
+                "bedienungsanleitung": "Anlassgebundenesfreigebaeckanteil 1",
+                "visuellesgeschmacksmuster": "1"
+            },
+            "_id": "610d4d8647906d0027718499",
+            "type": "anlassgebundenesfreigebaeckbedarfsanteil"
+        },
+        {
+            "content": {
+                "url": "Zum Verzehr Vorgemerkt Anlassgebundenesfreigebaeckanteil",
+                "bedienungsanleitung": "Anlassgebundenesfreigebaeckanteil 2",
+                "visuellesgeschmacksmuster": "2"
+            },
+            "_id": "610d4d8647906d002771849a",
+            "type": "zumverzehrvorgemerkt"
+        },
+        {
+            "content": {
+                "url": "Gegessenes Anlassgebundenesfreigebaeckanteil",
+                "bedienungsanleitung": "Anlassgebundenesfreigebaeckanteil 3",
+                "visuellesgeschmacksmuster": "3",
+                "feedbackZettel": "Lecker"
+            },
+            "_id": "610d4d8647906d002771849b",
+            "type": "zettel"
+        }
+    ],
+    "__v": 0
+}

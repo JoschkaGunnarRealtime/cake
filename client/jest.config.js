@@ -4,5 +4,6 @@ module.exports = {
     transform: {
       '.*\\.(vue)$': '<rootDir>/node_modules/vue-jest',
     },  
-    transformIgnorePatterns: ["node_modules/(?!vue-youtube-embed|vuetify)"]
+    transformIgnorePatterns: ["node_modules/(?!vue-youtube-embed|vuetify)"],
+    setupFiles: ["./tests/setup.js"]
   }

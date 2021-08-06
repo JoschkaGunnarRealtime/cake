@@ -2,6 +2,25 @@
 
 exports[`Anlassgebundenesfreigebaeck should take and compare a snapshot 1`] = `
 <div>
-  <v-progress-circular indeterminate=""></v-progress-circular>
+  <div>
+    <h1>Hallo ich bin ein Anlass gebundenes Freigebäck!</h1>
+    <v-row-stub tag="div">
+      <v-col-stub cols="4" tag="div" class="d-flex child-flex">
+        <anlassgebundenesfreigebaeckbedarfsanteil-stub anlassgebundenesfreigebaeckidentifikationsnummer="610d4d8647906d0027718498" anlassgebundenesfreigebaeckbedarfsanteilsidentifikationsnummer="610d4d8647906d0027718499" visuellesgeschmacksmuster="1" bedienungsanleitung="Anlassgebundenesfreigebaeckanteil 1" url="Zum Anschauen verfügbares Anlassgebundenesfreigebaeckanteil"></anlassgebundenesfreigebaeckbedarfsanteil-stub>
+        <!---->
+        <!---->
+      </v-col-stub>
+      <v-col-stub cols="4" tag="div" class="d-flex child-flex">
+        <!---->
+        <zumverzehrvorgemerkterteller-stub></zumverzehrvorgemerkterteller-stub>
+        <!---->
+      </v-col-stub>
+      <v-col-stub cols="4" tag="div" class="d-flex child-flex">
+        <!---->
+        <!---->
+        <kommentarzettel-stub kommentarzettel="Lecker"></kommentarzettel-stub>
+      </v-col-stub>
+    </v-row-stub>
+  </div>
 </div>
 `;
