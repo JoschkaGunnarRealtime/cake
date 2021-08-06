@@ -1,4 +1,4 @@
-import BackwarenZerUndNeuVerbroeselungsSystem from '../../../src/helper/BackwarenZerUndNeuVerbroeselungsSystem.vue';
+import BackwarenZerUndNeuVerbroeselungsSystem from '../../../src/helper/BackwarenZerUndNeuVerbroeselungsSystem';
 
 describe('BackwarenZerUndNeuVerbroeselungsSystem', () => {
     describe('#zusammenbroeseln', () => {

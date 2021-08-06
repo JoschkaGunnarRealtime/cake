@@ -1,6 +1,12 @@
 {
-  "preset": "@vue/cli-plugin-unit-jest",
-  "transform": {
-    "^.+\\.(js|jsx)?$": "babel-jest"
-  }
+    "jest": {
+        "moduleFileExtensions": [
+        "js",
+        "json",
+        "vue"
+        ],
+        "transform": {
+        ".*\\.(js|vue)$": "babel-jest"
+        }
+    }
 }
