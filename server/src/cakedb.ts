@@ -40,6 +40,7 @@ export default class CakeDB {
     }
 
     async getCake(index: number): Promise<any> {
+        console.log('Ich bin das ECHTE CakeDB.')
         try {
             const rückgabeBeiKuchenSuchen = await anlassgebundenesfreigebaeckModel.findOne({ _id: index });
             return {

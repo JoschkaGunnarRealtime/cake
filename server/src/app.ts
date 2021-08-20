@@ -4,10 +4,11 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import AnlassgebundenesfreigebaeckRoutes from "./routes/anlassgebundenesfreigebaeck.routes";
 import backwarenEntschluesselungsModul from "./support/backwarenverschluesselung";
-import CakeDB from "cakedb.js";
+import CakeDB from "./cakedb";
 
-export default async function (cakeDB: CakeDB) {
+export default async function () {
   const app = express();
+  const cakeDB = new CakeDB();
   const router = express.Router();
 
   dotenv.config({
@@ -15,9 +16,7 @@ export default async function (cakeDB: CakeDB) {
   });
 
   app.use(morgan("combined"));
-  console.log('Try to connect to the database...');
   await cakeDB.connectDB();
-  console.log('Called connectDB()');
   app.use(express.json());
   app.use(backwarenEntschluesselungsModul);
   app.use(cors());

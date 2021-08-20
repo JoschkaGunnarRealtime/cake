@@ -9,7 +9,6 @@ export default {
     //     res.status(200).json(mengeAllerAnlassgebundendenfreigebaecke);
     // },
     getCake: async (req: any, res: any) => {
-        console.log('param', req.params["anlassgebundenesfreigebaeck"]);
         let cakeDB = new CakeDB();
 
         const mengeAllerAnlassgebundendenfreigebaecke = await cakeDB.getCake(req.params['anlassgebundenesfreigebaeck']);
