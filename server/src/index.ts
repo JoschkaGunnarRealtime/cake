@@ -7,7 +7,12 @@ import parse from 'url-parse';
 import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreigebaeck.js';
 import IAnlassgebundenesfreigebaeck from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeck.js';
 import IAnlassgebundenesfreigebaeckbedarfsanteil from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeckbedarfsanteil.js';
-import app from './app.js'
+import makeApp from './app.js'
+import CakeDB from './cakedb.js';
+
+const cakeDB = new CakeDB();
+
+const app = await makeApp(cakeDB);
 
 app.listen(process.env.PORT, () => {
   console.log('Started Server on Port ' + process.env.PORT);

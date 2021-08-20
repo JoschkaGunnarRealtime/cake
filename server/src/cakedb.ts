@@ -1,13 +1,12 @@
-import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreigebaeck.js';
-import IAnlassgebundenesfreigebaeck from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeck.js';
-import IAnlassgebundenesfreigebaeckbedarfsanteil from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeckbedarfsanteil.js';
+import { anlassgebundenesfreigebaeckModel } from './models/anlassgebundenesfreigebaeck';
+import IAnlassgebundenesfreigebaeck from './models/schnittstellenDefinitionfueranlassgebundenesfreigebaeck';
 import mongoose, { Mongoose } from 'mongoose';
 import dotenv from 'dotenv';
 
 export default class CakeDB {
-    MONGO_URI: string = '';
+    private MONGO_URI: string = '';
     AnlassgebundenesfreigebaeckMengenSpeicherungsEntität: any;
-    bConnected = false;
+    private bConnected = false;
 
     constructor() {
         dotenv.config({
@@ -27,6 +26,7 @@ export default class CakeDB {
                 user: process.env.MONGO_INITDB_ROOT_USERNAME,
                 pass: process.env.MONGO_INITDB_ROOT_PASSWORD,
             });
+            console.log("Database connected!");
             this.bConnected = true
         } catch (error) {
             this.bConnected = false;

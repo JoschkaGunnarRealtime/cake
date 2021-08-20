@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import AnlassgebundenesfreigebaeckbedarfsanteilSchema from './anlassgebundenesfreigebaeckbedarfsanteil.js';
+import AnlassgebundenesfreigebaeckbedarfsanteilSchema from './anlassgebundenesfreigebaeckbedarfsanteil';
 
 const AnlassgebundenesfreigebaeckSchema = new mongoose.Schema({
     anlassgebundenesfreigebaeck: String,

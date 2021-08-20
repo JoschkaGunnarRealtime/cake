@@ -1,5 +1,5 @@
 import { Router } from "express";
-import anlassgebundenesfreigebaeckController from "../controller/anlassgebundenesfreigebaeck.controller.js";
+import anlassgebundenesfreigebaeckController from "../controller/anlassgebundenesfreigebaeck.controller";
 
 export default (app: any) => {
     let router = Router();

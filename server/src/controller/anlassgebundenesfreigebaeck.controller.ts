@@ -1,5 +1,5 @@
 import IAnlassgebundenesfreigebaeck from "../models/schnittstellenDefinitionfueranlassgebundenesfreigebaeck";
-import CakeDB from "../cakedb.js";
+import CakeDB from "../cakedb";
 
 export default {
     // get: async (req: any, res: any) => {
