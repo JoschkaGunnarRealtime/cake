@@ -1,5 +1,5 @@
 import IAnlassgebundenesfreigebaeck from "../models/schnittstellenDefinitionfueranlassgebundenesfreigebaeck";
-import CakeDB from "../cakedb.js";
+import CakeDB from "../cakedb";
 
 export default {
     // get: async (req: any, res: any) => {
@@ -9,7 +9,6 @@ export default {
     //     res.status(200).json(mengeAllerAnlassgebundendenfreigebaecke);
     // },
     getCake: async (req: any, res: any) => {
-        console.log('param', req.params["anlassgebundenesfreigebaeck"]);
         let cakeDB = new CakeDB();
 
         const mengeAllerAnlassgebundendenfreigebaecke = await cakeDB.getCake(req.params['anlassgebundenesfreigebaeck']);
