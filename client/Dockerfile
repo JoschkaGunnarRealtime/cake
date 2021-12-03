@@ -1,7 +1,13 @@
 # build stage
-FROM node:lts-alpine as build-stage
+FROM ubuntu:trusty as build-stage
 WORKDIR /app
 COPY package*.json ./
+
+# Install python/pip
+RUN apt-get update
+RUN apt-get install nodejs
+RUN apt-get install npm
+
 RUN npm install
 COPY . .
 RUN npm run build

@@ -43,6 +43,5 @@ export default {
             return this.url.split('/')[this.url.split('/').length - 1];
         }
     },
-
 }
 </script>
